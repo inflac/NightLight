@@ -1,4 +1,4 @@
-This API provides functionality to manage and update the availability status on a website, post Instagram stories based on status changes, and retrieve the current status and last update time. The API is designed to handle status updates for ["Nightline"](https://nightlines.eu/) platforms, allowing the team to easily update information on the website and on Instagram.
+This API provides functionality to manage and update the availability status on a website, post Instagram stories based on status changes, and retrieve the current status and last update time. The API is designed to handle status updates for [Nightline](https://nightlines.eu/) platforms, allowing the team to easily update information on the website and on Instagram.
 
 # Features
 * Change the status by making a simple GET request
@@ -31,16 +31,12 @@ If you would like to reset the status before or after 00:00, update the cronjob.
 **Docker Compose / Docker:**
 Enter the file: `NightLight/Dockerfile` and change the time in the cron job command. Change:
 `RUN echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" >> /etc/cron.d/reset-status-cron` 
-
 to
-
 `RUN echo "0 2 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" >> /etc/cron.d/reset-status-cron`
 
 **Manual:**
 Insted of running `echo "0 0 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
-
 run:
-
 `echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
 
 ## Methods to run the API
