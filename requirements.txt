@@ -1,0 +1,9 @@
+flask
+gunicorn
+python-dotenv
+Flask-SQLAlchemy
+SQLAlchemy
+flask-cors
+instagrapi
+pillow
+pytz

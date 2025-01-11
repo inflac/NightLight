@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Update - Processing</title>
+    <style>
+        /* General body styling for dark mode */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;  /* Dark background */
+            color: white;               /* Light text */
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Styling for the header and description */
+        h1 {
+            color: #bbb;  /* Greenish for the header */
+        }
+
+        p {
+            font-size: 18px;
+            color: #bbb;     /* Light gray for instructions */
+        }
+
+        /* Styling for the status message */
+        #status-result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 8px;
+            width: 60%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        /* Success and Failure messages with colors */
+        .status-success {
+            background-color: #4caf50;  /* Green for success */
+            color: white;
+        }
+
+        .status-fail {
+            background-color: #f44336;  /* Red for failure */
+            color: white;
+        }
+
+        /* Styling for loading/processing state */
+        .status-processing {
+            background-color: #ff9800;  /* Orange for processing */
+            color: white;
+        }
+
+        /* Styling for the description in case of failure */
+        #status-description {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ffcc00; /* Yellow color for description */
+            max-width: 500px;
+            margin: 10px auto;
+        }
+
+        /* Footer with contact info */
+        footer {
+            margin-top: 100px;   /* Reduced the space above the footer */
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        footer p {
+            margin: 5px 0;   /* Reduced the space between the two <p> elements */
+        }
+
+        footer a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your request is being processed...</h1>
+    <p id="processing-message" style="display:none;">Please be patient. This may take up to 1 minute.</p>
+    <div id="status-result" class="status-processing">Processing...</div>
+    <div id="status-description"></div>
+
+    <footer>
+        <p>If you experience technical issues, please contact the Technic and Statistics Team.</p>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const api_key = params.get('api_key');
+        const status = params.get('status');
+        const story = params.get('story');
+
+        // Show the "Please be patient" message only if the story parameter is present
+        if (story === "true") {
+            document.getElementById("processing-message").style.display = 'block';
+        }
+
+        // Call the /update_status API to process the request
+        fetch(`/update_status?status=${status}&story=${story}&api_key=${api_key}`)
+            .then(response => response.json())
+            .then(data => {
+                const statusResult = document.getElementById("status-result");
+                const statusDescription = document.getElementById("status-description");
+
+                if (data.result === "success") {
+                    statusResult.innerText = "Success! The status has been updated.";
+                    statusResult.classList.remove('status-processing');
+                    statusResult.classList.add('status-success');
+                    statusDescription.innerText = '';  // Clear description if successful
+                } else if (data.result === "fail") {
+                    statusResult.innerText = "Something went wrong. Please try again later.";
+                    statusResult.classList.remove('status-processing');
+                    statusResult.classList.add('status-fail');
+                    statusDescription.innerText = data.description || "No further details available.";  // Show description if available
+                }
+            })
+            .catch(error => {
+                const statusResult = document.getElementById("status-result");
+                const statusDescription = document.getElementById("status-description");
+
+                statusResult.innerText = "An error occurred. Please try again later.";
+                statusResult.classList.remove('status-processing');
+                statusResult.classList.add('status-fail');
+                statusDescription.innerText = "No further details available.";  // Fallback description
+            });
+    </script>
+</body>
+</html>
