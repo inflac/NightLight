@@ -12,14 +12,15 @@ This API provides functionality to manage and update the availability status on 
 # Setup
 Make sure to read the ["Security notes"](#security-notes)
 ## Prerequisites
-1. Enter the base folder `NightLight`
-2. Rename `.env.example` to `.env`
-3. Configure the variables in `.env`
+1. Clone the repository by downloading it as a ZIP file or use `git clone https://github.com/inflac/NightLight.git`
+2. Enter the base folder `NightLight`
+3. Rename `.env.example` to `.env`
+4. Configure the variables in `.env`
     * Use a strong API-Key! E.g. 2048-bit with Mixed letters & Numbers
         * https://generate-random.org/api-key-generator
-4. In the `NightLight/website` folder you find HTML which you can copy and paste to your website. It will fetch the status and display a little notification if the status equals to "canceled" or "english". Feel free to adjust the design or displayed statuses.
+5. In the `NightLight/website` folder you find HTML which you can copy and paste to your website. It will fetch the status and display a little notification if the status equals to "canceled" or "english". Feel free to adjust the design or displayed statuses.
     * IMPORTANT: To make the code functioning, replace STATUS_API_URL(line 8) with the URL under which the API is callable. If the status can be requested on status.example.com, replace `STATUS_URL` with `https://status.example.com`. 
-5. Place the images you would like to post in your Instagram story, in the `NightLight/assets` folder. If you don't want to use the Instagram feature and have configured the required variables in .env accordingly, you do not have to place images in the assets folder. 
+6. Place the images you would like to post in your Instagram story, in the `NightLight/assets` folder. If you don't want to use the Instagram feature and have configured the required variables in .env accordingly, you do not have to place images in the assets folder. 
     * For status update to "canceled", name the image "canceled.png"
     * For status update to "english", name the image "english.png"
 
