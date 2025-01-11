@@ -9,6 +9,18 @@ This API provides functionality to manage and update the availability status on 
 * Dynamically display a message on your website, informing users about the status
 * Reset to default at 00:00.
 
+# Usage
+See API-Documentation.md or API-Documentation.pdf for detailed instructions<br>
+For programmatic use, call `/update_status?`<br>
+For user who update the status, you can use `/update_status_graphical?`
+
+**Get status:**<br>
+GET `your_domain.com/`<br>
+**Set status:**<br>
+GET `your_domain.com/update_status?status=canceled&api_key=API_KEY`<br>
+or<br>
+GET `your_domain.com/update_status?status=canceled&story=true&api_key=API_KEY`
+
 # Setup
 Make sure to read the ["Security notes"](#security-notes)
 ## Prerequisites
@@ -30,14 +42,12 @@ If you would like to reset the status before or after 00:00, update the cronjob.
 
 **Docker Compose / Docker:**
 Enter the file: `NightLight/Dockerfile` and change the time in the cron job command. Change:
-`RUN echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" >> /etc/cron.d/reset-status-cron` 
-to
+`RUN echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" >> /etc/cron.d/reset-status-cron`<br>
+to<br>
 `RUN echo "0 2 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" >> /etc/cron.d/reset-status-cron`
 
 **Manual:**
-Insted of running `echo "0 0 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
-run:
-`echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
+run: `echo "0 1 * * * /bin/bash /app/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
 
 ## Methods to run the API
 For every method, you should also configure a reverse proxy.
@@ -65,8 +75,7 @@ This method requires python and pip to be installed.
 3. In a terminal run `python server.py`
 
 ### Manual (production deployment)
-Because the API is based on a flask application, we want to use WSGI to run the app. The Web server served by flask is perfect for development, but not as robust and hardened than others which are made for production. 
-
+Because the API is based on a flask application, we want to use WSGI to run the app. The Web server served by flask is perfect for development, but not as robust and hardened than others which are made for production.<br>
 Make sure to insert the host you also entered in your .env   file.
 
 1. Enter the base folder `NightLight`
@@ -89,8 +98,7 @@ Make sure to insert the host you also entered in your .env   file.
 
 ## Reverse Proxy
 ### nginx
-Sample nginx reverse proxy configuration (untested)
-
+Sample nginx reverse proxy configuration (untested)<br>
 Make sure to replace the `THE_PORT_YOU_ENTERED_IN_DOT_ENV` variable in the last block, as well as `your_domain.com` with the actual domain, the status API is reachable under. E.g. status.example.com
 
 ```
@@ -137,8 +145,7 @@ server {
 ```
 
 ### apache
-Sample apache reverse proxy configuration (tested)
-
+Sample apache reverse proxy configuration (tested)<br>
 Make sure to replace the `THE_PORT_YOU_ENTERED_IN_DOT_ENV` variable in the last block, as well as `your_domain.com` with the actual domain, the status API is reachable under. E.g. status.example.com
 
 ```
@@ -189,7 +196,4 @@ However, to keep things simple, especially for users who want to change the stat
     * Change the status
     * DOS Attack by fast changing the status which overwhelms the server, causing it to crash
     * Get banned from Instagram.
-        * When having Instagram story posts configured, the server will post a story on status changes. Because Instagram is suspicious, it detects behavior which might come from automations. When too many actions are done in a short period of time, Instagram might lock you out or even ban your account.  
-
-
-***
+        * When having Instagram story posts configured, the server will post a story on status changes. Because Instagram is suspicious, it detects behavior which might come from automations. When too many actions are done in a short period of time, Instagram might lock you out or even ban your account.
