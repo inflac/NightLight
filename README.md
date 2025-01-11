@@ -10,7 +10,7 @@ This API provides functionality to manage and update the availability status on 
 * Reset to default at 00:00.
 
 # Setup
-Make sure to read the ["security notes"](Security-notes)
+Make sure to read the ["Security notes"](#security-notes)
 ## Prerequisites
 1. Enter the base folder `NightLight`
 2. Rename `.env.example` to `.env`
