@@ -30,10 +30,11 @@ Make sure to read the ["Security notes"](#security-notes)
 4. Configure the variables in `.env`
     * Use a strong API-Key! E.g. 2048-bit with Mixed letters & Numbers
         * https://generate-random.org/api-key-generator
-5. In the `NightLight/website` folder you find HTML which you can copy and paste to your website. It will fetch the status and display a little notification if the status equals to "canceled" or "english". Feel free to adjust the design or displayed statuses.
+5. In the `NightLight/website` folder you find HTML which you can copy and paste to your website. It will fetch the status and display a little notification if the status equals to "canceled", "german" or "english". Feel free to adjust the design or displayed statuses.
     * IMPORTANT: To make the code functioning, replace STATUS_API_URL(line 8) with the URL under which the API is callable. If the status can be requested on status.example.com, replace `STATUS_URL` with `https://status.example.com`. 
 6. Place the images you would like to post in your Instagram story, in the `NightLight/assets` folder. If you don't want to use the Instagram feature and have configured the required variables in .env accordingly, you do not have to place images in the assets folder. 
     * For status update to "canceled", name the image "canceled.png"
+    * For status update to "german", name the image "german.png"
     * For status update to "english", name the image "english.png"
 
 ## Optional

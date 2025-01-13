@@ -18,7 +18,10 @@
         nl_status.classList.remove('status-canceled', 'status-default', 'status-error');
         nl_status_box.style.display = 'flex';
 
-        if (status === 'english') {
+        if (status === 'german') {
+            nl_status.textContent = "Today we're only available in German 📞";
+            nl_status.classList.add('status-german');
+        } else if (status === 'english') {
             nl_status.textContent = "Today we're available in English & German 📞";
             nl_status.classList.add('status-english');
         } else if (status === 'canceled') {
@@ -63,6 +66,12 @@
         background-color: #f8d7da; /* Light red */
         color: #721c24; /* Dark red */
         border: 1px solid #f5c6cb;
+    }
+
+    .status-german {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404; /* Dark yellow */
+    border: 1px solid #ffeeba;
     }
 
     .status-english {
