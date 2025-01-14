@@ -25,7 +25,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Configure CORS
 allowed_websites = os.getenv("ALLOWED_WEBSITES")
-origins = allowed_websites.split(",") if allowed_websites else "*"
+if allowed_websites == "*":
+    origins = "*"
+elif isinstance(allowed_websites, str):
+    origins = [site.strip() for site in allowed_websites.split(",") if site.strip()]
+else:
+    origins = ""
 CORS(app, origins=origins)
 
 db = SQLAlchemy(app)
