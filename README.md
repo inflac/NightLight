@@ -1,4 +1,9 @@
-This API provides functionality to manage and update the availability status on a website, post Instagram stories based on status changes, and retrieve the current status and last update time. The API is designed to handle status updates for [Nightline](https://nightlines.eu/) platforms, allowing the team to easily update information on the website and on Instagram.
+This API provides functionality to manage and update the availability status on a website, 
+post Instagram stories based on status changes, and retrieve the current status and last update time.
+The API is designed to handle status updates for [Nightline](https://nightlines.eu/) platforms, 
+allowing the team to easily update information on the website and on Instagram. 
+
+There is also an [android app](https://github.com/inflac/NightLight-App), wrapping the API
 
 # Features
 * Change the status by making a simple GET request
