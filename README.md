@@ -3,7 +3,7 @@ post Instagram stories based on status changes, and retrieve the current status 
 The API is designed to handle status updates for [Nightline](https://nightlines.eu/) platforms, 
 allowing the team to easily update information on the website and on Instagram. 
 
-There is also an [android app](https://github.com/inflac/NightLight-App), wrapping the API
+There is also an [android app](https://github.com/inflac/NightLight-App), that interfaces the API.
 
 # Features
 * Change the status by making a simple GET request
@@ -15,7 +15,7 @@ There is also an [android app](https://github.com/inflac/NightLight-App), wrappi
 * Reset to default at 00:00.
 
 # Usage
-See API-Documentation.md or API-Documentation.pdf for detailed instructions<br>
+See [API-Documentation.md](./API-Documentation.md) or [API-Documentation.pdf](./API-Documentation.pdf) for detailed instructions<br>
 For programmatic use, call `/update_status?`<br>
 For user who update the status, you can use `/update_status_graphical?`
 
