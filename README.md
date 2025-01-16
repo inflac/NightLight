@@ -41,6 +41,8 @@ Make sure to read the ["Security notes"](#security-notes)
     * For status update to "canceled", name the image "canceled.png"
     * For status update to "german", name the image "german.png"
     * For status update to "english", name the image "english.png"
+7. Turn off 2 factor authentication for Instagram. Othersise the script can't login to your account.
+    * Maybe turn it off and choose a new strong password.
 
 ## Optional
 ### Change the reset time
