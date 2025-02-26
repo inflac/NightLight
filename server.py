@@ -111,7 +111,7 @@ def update_status():
         return jsonify({"result": "fail", "description": "API-KEY error"}), 401
 
     new_status = request.args.get("status", "")
-    if new_status not in ["default", "canceled", "german", "english"]:
+    if new_status not in ["default", "canceled", "german", "english", "chat"]:
         app.logger.debug(f"[Error] Wrong status: '{new_status}' by: {request.remote_addr}")
         return jsonify({"result": "fail", "description": "status error"}), 400
 

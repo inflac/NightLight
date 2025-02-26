@@ -27,6 +27,9 @@
         } else if (status === 'canceled') {
             nl_status.textContent = "Wir sind heute Abend leider nicht erreichbar 🙁";
             nl_status.classList.add('status-canceled');
+        } else if (status === 'chat') {
+            nl_status.textContent = "Wir sind heute Abend nur per Chat erreichbar";
+            nl_status.classList.add('status-chat');
         } else {
             nl_status_box.style.display = 'none';
         }
@@ -75,6 +78,12 @@
     }
 
     .status-english {
+    background-color: #cce5ff; /* Light blue */
+    color: #004085; /* Dark blue */
+    border: 1px solid #b8daff;
+    }
+
+    .status-chat {
     background-color: #cce5ff; /* Light blue */
     color: #004085; /* Dark blue */
     border: 1px solid #b8daff;

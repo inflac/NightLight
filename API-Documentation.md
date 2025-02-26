@@ -135,6 +135,6 @@ The API provides error responses in the following cases:
 ## Troubleshooting
 
 - **Invalid API Key**: Ensure that the correct API key is passed in the `api_key` query parameter.
-- **Invalid Status**: Only the statuses `"default"`, `"canceled"`, `"german"`, and `"english"` are accepted. Any other status will result in an error.
+- **Invalid Status**: Only the statuses `"default"`, `"canceled"`, `"german"`, `"english"` and `"chat"` are accepted. Any other status will result in an error.
 - **Instagram Post**: If the Instagram story fails to upload, the status will still be updated, but a failure message will be returned with additional details.
     - Uploading an instagram story might fail if no instagram account is configured
