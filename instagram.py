@@ -108,8 +108,10 @@ def instagram_post_for_status(status: str) -> bool:
     INSTAGRAM_STORY_ENGLISH = os.getenv("INSTAGRAM_STORY_ENGLISH") == "true"
     INSTAGRAM_STORY_GERMAN = os.getenv("INSTAGRAM_STORY_GERMAN") == "true"
     INSTAGRAM_STORY_CHAT = os.getenv("INSTAGRAM_STORY_CHAT") == "true"
+    INSTAGRAM_STORY_NOW = os.getenv("INSTAGRAM_STORY_CHAT") == "true"
     if status == "canceled" and INSTAGRAM_STORY_CANCELED: return True
     elif status == "english" and INSTAGRAM_STORY_ENGLISH: return True
     elif status == "german" and INSTAGRAM_STORY_GERMAN: return True
     elif status == "chat" and INSTAGRAM_STORY_CHAT: return True
+    elif status == "now" and INSTAGRAM_STORY_NOW: return True
     return False

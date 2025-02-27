@@ -37,6 +37,9 @@ This endpoint updates the system status. The `status` parameter is required, and
   - `"canceled"`
   - `"german"`
   - `"english"`
+  - `"chat"`
+  - `"now"`
+
 - `story` (optional): If `"true"`, an Instagram story will be posted along with the status update.
 
 #### Response:
@@ -126,6 +129,8 @@ The API provides error responses in the following cases:
   - `"canceled"`
   - `"german"`
   - `"english"`
+  - `"chat"`
+  - `"now"`
 
 - **Instagram Story**:  
   If the `story` parameter is set to `"true"`, the system will attempt to post an Instagram story based on the status. If the request attemts to set the same status as the current status and a story has been posted recently (within 6 hours), it will skip posting a new one. Otherwise it will remove the old story and post a new one.

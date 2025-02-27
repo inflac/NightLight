@@ -15,10 +15,16 @@
         var nl_status_box = document.getElementById('nl-status-box');
         var nl_status = document.getElementById('nl-status');
         
-        nl_status.classList.remove('status-canceled', 'status-default', 'status-error', 'status-english', 'status-german');
+        nl_status.classList.remove('status-now', 'status-canceled', 'status-default', 'status-error', 'status-english', 'status-german');
         nl_status_box.style.display = 'flex';
 
-        if (status === 'german') {
+        if (status === 'now') {
+            nl_status.textContent = "Wir sind jetzt für dich erreichbar 📞";
+            nl_status.classList.add('status-now');
+        } else if (status === 'default') {
+            nl_status.textContent = "Wir sind heute Abend für dich erreichbar 📞";
+            nl_status.classList.add('status-default');
+        } else if (status === 'german') {
             nl_status.textContent = "Heute sind wir nur auf deutsch erreichbar 📞";
             nl_status.classList.add('status-german');
         } else if (status === 'english') {
@@ -28,7 +34,7 @@
             nl_status.textContent = "Wir sind heute Abend leider nicht erreichbar 🙁";
             nl_status.classList.add('status-canceled');
         } else if (status === 'chat') {
-            nl_status.textContent = "Wir sind heute Abend nur per Chat erreichbar";
+            nl_status.textContent = "Wir sind heute Abend nur per Chat erreichbar 📩";
             nl_status.classList.add('status-chat');
         } else {
             nl_status_box.style.display = 'none';
@@ -60,6 +66,12 @@
     }
 
     .status-default {
+        background-color: #d4edda; /* Light green */
+        color: #155724; /* Dark green */
+        border: 1px solid #c3e6cb;
+    }
+
+    .status-now {
         background-color: #d4edda; /* Light green */
         color: #155724; /* Dark green */
         border: 1px solid #c3e6cb;
