@@ -99,10 +99,11 @@ Make sure to insert the host you also entered in your .env   file.
         nohup gunicorn --workers 3 --bind THE_HOST_YOU_ENTERED_IN_DOT_ENV:8000 server:app > gunicorn.log 2>&1 &
         ```
 4. Now you can configure the reset cron job to reset the status to "default" every night. If you want to change the time, the reset is triggered, take a look at the "optional" section above. Replace PATH_TO_NIGHTLIGHT with the actual path to the NightLight folder
-    1. Make the reset script executable: `chmod +x PATH_TO_NIGHTLIGHT/NightLight/reset_status.sh`
-    2. Configure the cron job: `echo "0 1 * * * /bin/bash PATH_TO_NIGHTLIGHT/NightLight/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
-    3. Set correct permissions for the cron job configuration: `chmod 0644 /etc/cron.d/reset-status-cron`
-    4. Add the cronjob config to crontab: `crontab /etc/cron.d/reset-status-cron`
+    1. Replace the path `/app/.env` in the file `reset_status.sh` with the actual absolut path to your .env file. E.g. `/opt/nightlight/.env`
+    2. Make the reset script executable: `chmod +x PATH_TO_NIGHTLIGHT/NightLight/reset_status.sh`
+    3. Configure the cron job: `echo "0 1 * * * /bin/bash PATH_TO_NIGHTLIGHT/NightLight/reset_status.sh >> /var/log/cron.log 2>&1" > /etc/cron.d/reset-status-cron`
+    4. Set correct permissions for the cron job configuration: `chmod 0644 /etc/cron.d/reset-status-cron`
+    5. Add the cronjob config to crontab: `crontab /etc/cron.d/reset-status-cron`
 
 
 ## Reverse Proxy
