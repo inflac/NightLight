@@ -1,10 +1,10 @@
-FROM python:3.13
+FROM python:3.13-slim
 
 WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN apt-get update && apt-get install -y cron curl
+RUN apt-get update && apt-get install -y --no-install-recommends cron curl && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Configure reset cron job
