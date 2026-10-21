@@ -1,4 +1,5 @@
 import os
+import hmac
 import pytz
 import logging
 
@@ -106,9 +107,11 @@ def update_status():
     """
 
     # Check API Key
-    api_key = request.args.get("api_key")
-    if not api_key or api_key != os.getenv("API_KEY"):
-        app.logger.debug(f"[Error] Wrong API-Key: '{api_key}' by: {request.remote_addr}")
+    # Constant-time comparison to prevent timing attacks on the API key
+    api_key = request.args.get("api_key", "")
+    expected_key = os.getenv("API_KEY", "")
+    if not api_key or not expected_key or not hmac.compare_digest(api_key.encode(), expected_key.encode()):
+        app.logger.debug(f"[Error] Wrong API-Key by: {request.remote_addr}")
         return jsonify({"result": "fail", "description": "API-KEY error"}), 401
 
     new_status = request.args.get("status", "")
