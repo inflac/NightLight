@@ -74,6 +74,7 @@ class State(db.Model):
         # Query to check if there's a valid instagram_media_id and if last_update is within the last 24 hours
         state = cls.query.filter(
             cls.instagram_media_id != None,
+            cls.instagram_media_id != "",
             cls.last_update >= twenty_four_hours_ago
         ).first()
         
