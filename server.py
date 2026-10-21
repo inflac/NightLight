@@ -1,10 +1,9 @@
 import os
 import hmac
-import pytz
 import logging
 
 from dotenv import load_dotenv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from sqlalchemy.exc import OperationalError
 
 from flask import Flask, jsonify, request, render_template
@@ -14,7 +13,6 @@ from flask_cors import CORS, cross_origin
 from instagram import DATA_DIR, post_story, delete_story_by_id, instagram_post_for_status
 
 # General Configuration
-tz = pytz.timezone('Europe/Berlin')
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
@@ -42,7 +40,7 @@ class State(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(10), nullable=False, default="default")
     instagram_media_id = db.Column(db.String(50), nullable=True, default="")
-    last_update = db.Column(db.DateTime, default=lambda: datetime.now(tz), onupdate=lambda: datetime.now(tz))
+    last_update = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     # Return the state object if present. None otherwise
     @classmethod
@@ -62,7 +60,7 @@ class State(db.Model):
         if current_state:
             current_state.status = new_status
             current_state.instagram_media_id = instagram_media_id
-            current_state.last_update = datetime.now(tz)
+            current_state.last_update = datetime.now(timezone.utc)
         else:
             current_state = cls(status=new_status, instagram_media_id=instagram_media_id)
             db.session.add(current_state)
@@ -71,7 +69,7 @@ class State(db.Model):
     @classmethod
     def has_recent_media_id(cls, timedelta_hours=24):
         """Checks if there is an instagram_media_id and last_update is within the last 24 hours."""
-        twenty_four_hours_ago = datetime.now(tz) - timedelta(hours=timedelta_hours)
+        twenty_four_hours_ago = datetime.now(timezone.utc) - timedelta(hours=timedelta_hours)
         
         # Query to check if there's a valid instagram_media_id and if last_update is within the last 24 hours
         state = cls.query.filter(
@@ -97,7 +95,9 @@ with app.app_context():
 @cross_origin()
 def get_status():
     current_state = State.get_state()
-    return jsonify({"status": current_state.status, "last_update": current_state.last_update}), 200
+    # Times are stored in UTC, but SQLite drops the timezone info
+    last_update = current_state.last_update.replace(tzinfo=timezone.utc).isoformat()
+    return jsonify({"status": current_state.status, "last_update": last_update}), 200
 
 @app.route("/update_status", methods=['GET'])
 def update_status():

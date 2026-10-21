@@ -21,9 +21,10 @@ Fetches the current system status and the time of the last update.
       ```json
       {
         "status": "default",
-        "last_update": "Wed, 08 Jan 2025 18:34:01 GMT"
+        "last_update": "2025-01-08T18:34:01.123456+00:00"
       }
       ```
+    - `last_update` is an ISO 8601 timestamp in UTC. Convert it to the local time of the viewer, e.g. in JavaScript: `new Date(data.last_update).toLocaleString()`
 
 ### 2. **GET /update_status**
 

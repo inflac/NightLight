@@ -46,7 +46,7 @@ Make sure to read the ["Security notes"](#security-notes)
 
 ## Optional
 ### Change the reset time
-If you would like to reset the status before or after 00:00, update the cronjob. E.g. to run the reset at 01:00, do the following, based on the Method to run the API.
+The reset time is interpreted in the timezone set by `TZ` in `.env` (default `Europe/Berlin`). If you would like to reset the status before or after 00:00, update the cronjob. E.g. to run the reset at 01:00, do the following, based on the Method to run the API.
 
 **Docker Compose / Docker:**
 Enter the file: `NightLight/Dockerfile` and change the time in the cron job command. Change:
