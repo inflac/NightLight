@@ -14,12 +14,12 @@ from instagram import DATA_DIR, post_story, delete_story_by_id, instagram_post_f
 
 # General Configuration
 tz = pytz.timezone('Europe/Berlin')
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 # App
 app = Flask(__name__)
-app.logger.setLevel(logging.DEBUG)
+app.logger.setLevel(logging.INFO)
 os.makedirs(DATA_DIR, exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.abspath(os.path.join(DATA_DIR, 'state.db'))}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
