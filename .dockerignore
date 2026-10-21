@@ -1,0 +1,15 @@
+# Secrets and persistent data (mounted / passed via env_file at runtime)
+.env
+data/
+instance/
+session.json
+*.db
+
+# Not needed in the image
+.git
+.gitignore
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.pdf

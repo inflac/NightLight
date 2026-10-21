@@ -15,4 +15,5 @@ RUN crontab /etc/cron.d/reset-status-cron
 
 EXPOSE 5000
 
-CMD cron && gunicorn --log-level info --timeout 120 -w 3 -b ${HOST}:5000 server:app
+# Write the container env to /app/.env, since cron jobs (reset_status.sh) do not inherit it
+CMD export -p > /app/.env && cron && gunicorn --log-level info --timeout 120 -w 3 -b ${HOST}:5000 server:app
