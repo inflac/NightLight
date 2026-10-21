@@ -10,7 +10,7 @@ from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 
-from instagram import post_story, delete_story_by_id, instagram_post_for_status
+from instagram import DATA_DIR, post_story, delete_story_by_id, instagram_post_for_status
 
 # General Configuration
 tz = pytz.timezone('Europe/Berlin')
@@ -20,7 +20,8 @@ load_dotenv()
 # App
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///state.db'
+os.makedirs(DATA_DIR, exist_ok=True)
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.abspath(os.path.join(DATA_DIR, 'state.db'))}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Configure CORS

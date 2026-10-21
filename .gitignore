@@ -3,6 +3,9 @@ canceled.png
 english.png
 german.png
 
+# persistent data (state.db, session.json)
+data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

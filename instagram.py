@@ -8,6 +8,10 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
+# Persistent data (mounted as volume in docker-compose.yml)
+DATA_DIR = "data"
+SESSION_FILE = os.path.join(DATA_DIR, "session.json")
+
 UA = "Instagram 410.0.0.0.96 Android (33/13; 480dpi; 1080x2400; xiaomi; M2007J20CG; surya; qcom; en_US; 641123490)"
 
 def login_user(cl:Client) -> bool:
@@ -25,8 +29,8 @@ def login_user(cl:Client) -> bool:
 
     # Load session.json if present
     session = None
-    if os.path.exists("session.json"):
-        session = cl.load_settings("session.json")
+    if os.path.exists(SESSION_FILE):
+        session = cl.load_settings(SESSION_FILE)
 
     if session:
         try:
@@ -50,7 +54,7 @@ def login_user(cl:Client) -> bool:
                 cl.login(USERNAME, PASSWORD)
             login_via_session = True
 
-            cl.dump_settings("session.json")
+            cl.dump_settings(SESSION_FILE)
         except Exception as e:
             logger.info("Couldn't login user using session information: %s" % e)
 
@@ -60,7 +64,7 @@ def login_user(cl:Client) -> bool:
             cl.set_user_agent(UA)
             if cl.login(USERNAME, PASSWORD):
                 login_via_pw = True
-                cl.dump_settings("session.json")
+                cl.dump_settings(SESSION_FILE)
         except Exception as e:
             logger.info("Couldn't login user using username and password: %s" % e)
 
