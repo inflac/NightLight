@@ -12,8 +12,6 @@ logger = logging.getLogger(__name__)
 DATA_DIR = "data"
 SESSION_FILE = os.path.join(DATA_DIR, "session.json")
 
-UA = "Instagram 410.0.0.0.96 Android (33/13; 480dpi; 1080x2400; xiaomi; M2007J20CG; surya; qcom; en_US; 641123490)"
-
 def login_user(cl:Client) -> bool:
     """
     Attempts to login to Instagram using either the provided session information
@@ -30,12 +28,12 @@ def login_user(cl:Client) -> bool:
     # Load session.json if present
     session = None
     if os.path.exists(SESSION_FILE):
-        session = cl.load_settings(SESSION_FILE)
+        # override_app_version: switch sessions saved by older versions to the current app profile
+        session = cl.load_settings(SESSION_FILE, override_app_version=True)
 
     if session:
         try:
             cl.set_settings(session)
-            cl.set_user_agent(UA)
             cl.login(USERNAME, PASSWORD)
 
             # check if session is valid
@@ -49,7 +47,6 @@ def login_user(cl:Client) -> bool:
                 # use the same device uuids across logins
                 cl.set_settings({})
                 cl.set_uuids(old_session["uuids"])
-                cl.set_user_agent(UA)
 
                 cl.login(USERNAME, PASSWORD)
             login_via_session = True
@@ -61,7 +58,6 @@ def login_user(cl:Client) -> bool:
     if not login_via_session:
         try:
             logger.info("Attempting to login via username and password. username: %s" % USERNAME)
-            cl.set_user_agent(UA)
             if cl.login(USERNAME, PASSWORD):
                 login_via_pw = True
                 cl.dump_settings(SESSION_FILE)
