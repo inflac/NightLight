@@ -40,7 +40,7 @@ class State(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(10), nullable=False, default="default")
     instagram_media_id = db.Column(db.String(50), nullable=True, default="")
-    last_update = db.Column(db.DateTime, default=datetime.now(tz), onupdate=datetime.now(tz))
+    last_update = db.Column(db.DateTime, default=lambda: datetime.now(tz), onupdate=lambda: datetime.now(tz))
 
     # Return the state object if present. None otherwise
     @classmethod
